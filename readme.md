@@ -9,33 +9,45 @@ Auto provision TLS for development, stage or production
 To start a development server that creates a self-signed certification and starts a server with it
 
 ```golang
-config := tlswrap.NewConfig("./", []string{""})
-tlswrap.StartServerWithHandler("127.0.0.1:8443", config, nil)
+import "github.com/ronniskansing/tlswrap"
 
-http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
-    fmt.Fprintln(rw, "Hello World")
-})
+func main() {
+  config := tlswrap.NewConfig("./", []string{""})
+  tlswrap.StartServerWithHandler("127.0.0.  1:8443", config, nil)
+  
+  http.HandleFunc("/", func(rw http.  ResponseWriter, r *http.Request) {
+      fmt.Fprintln(rw, "Hello World")
+  })
+}
 ```
 
 ### Stage Server
 To start a stage server that uses a ACME stage server for certificates.
 
 ```golang
-config := tlswrap.NewStageConfigFromConfig(tlswrap.NewConfig("./", []string{""}))
-tlswrap.StartServerWithHandler("127.0.0.1:8443", config, nil)
+import "github.com/ronniskansing/tlswrap"
 
-http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
-    fmt.Fprintln(rw, "Hello World")
-})
+func main() {
+  config := tlswrap.NewStageConfigFromConfig  (tlswrap.NewConfig("./", []string{""}))
+  tlswrap.StartServerWithHandler(":8443", config, nil)
+  
+  http.HandleFunc("/", func(rw http.  ResponseWriter, r *http.Request) {
+      fmt.Fprintln(rw, "Hello World")
+  })
+}
 ```
 
 ### Production Server
 To start a production server that self-provisions certificates
 ```golang
-config := tlswrap.NewStageConfigFromConfig(tlswrap.NewConfig("./", []string{"domain.tld"}))
-tlswrap.StartServerWithHandler(":443", config, nil)
+import "github.com/ronniskansing/tlswrap"
 
-http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
+func main() {
+  config := tlswrap.NewStageConfigFromConfig(tlswrap.NewConfig("./", []string{"domain.tld"}))
+  tlswrap.StartServerWithHandler(":443", config, nil)
+
+  http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
     fmt.Fprintln(rw, "Hello World")
 })
+}
 ```
