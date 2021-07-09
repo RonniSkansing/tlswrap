@@ -48,6 +48,6 @@ func main() {
 
   http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
     fmt.Fprintln(rw, "Hello World")
-})
+  })
 }
 ```
