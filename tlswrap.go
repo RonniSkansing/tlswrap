@@ -196,56 +196,17 @@ func StartDevServerWithHandler(address string, config Config, handler http.Handl
 
 // createSelfSignedCert creates a snakeoil certificate and saves it at supplied path
 func CreateSelfSignedCert(path string) error {
-	/*
-		CA SIGNING
-		ca := &x509.Certificate{
-			SerialNumber: big.NewInt(2019),
-			Subject: pkix.Name{
-				Organization:  []string{"Company, INC."},
-				Country:       []string{"US"},
-				Province:      []string{""},
-				Locality:      []string{"San Francisco"},
-				StreetAddress: []string{"Golden Gate Bridge"},
-				PostalCode:    []string{"94016"},
-			},
-			NotBefore:             time.Now(),
-			NotAfter:              time.Now().AddDate(10, 0, 0),
-			IsCA:                  true,
-			ExtKeyUsage:           []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth, x509.ExtKeyUsageServerAuth},
-			KeyUsage:              x509.KeyUsageDigitalSignature | x509.KeyUsageCertSign,
-			BasicConstraintsValid: true,
-		}
-		caPrivKey, err := rsa.GenerateKey(rand.Reader, 4096)
-		if err != nil {
-			return nil, err
-		}
-		caBytes, err := x509.CreateCertificate(rand.Reader, ca, ca, &caPrivKey.PublicKey, caPrivKey)
-		if err != nil {
-			return nil, err
-		}
-		caPEM := new(bytes.Buffer)
-		pem.Encode(caPEM, &pem.Block{
-			Type:  "CERTIFICATE",
-			Bytes: caBytes,
-		})
-
-		caPrivKeyPEM := new(bytes.Buffer)
-		pem.Encode(caPrivKeyPEM, &pem.Block{
-			Type:  "RSA PRIVATE KEY",
-			Bytes: x509.MarshalPKCS1PrivateKey(caPrivKey),
-		})
-	*/
 	certPath := fmt.Sprintf("%s/%s.pem", path, DevCertName)
 	privKeyPath := fmt.Sprintf("%s/%s.key", path, DevCertName)
 	cert := &x509.Certificate{
 		SerialNumber: big.NewInt(1658),
 		Subject: pkix.Name{
-			Organization:  []string{"Company, INC."},
-			Country:       []string{"US"},
-			Province:      []string{""},
-			Locality:      []string{"San Francisco"},
-			StreetAddress: []string{"Golden Gate Bridge"},
-			PostalCode:    []string{"94016"},
+			Organization:  []string{"Dev"},
+			Country:       []string{"Dev"},
+			Province:      []string{"Dev"},
+			Locality:      []string{"Dev"},
+			StreetAddress: []string{"Dev"},
+			PostalCode:    []string{"0"},
 		},
 		IPAddresses:  []net.IP{net.IPv4(127, 0, 0, 1), net.IPv6loopback},
 		NotBefore:    time.Now(),
