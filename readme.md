@@ -13,7 +13,7 @@ import "github.com/ronniskansing/tlswrap"
 
 func main() {
   config := tlswrap.NewConfig("./", []string{""})
-  tlswrap.StartServerWithHandler("127.0.0.  1:8443", config, nil)
+  tlswrap.StartDevServer("127.0.0.  1:8443", config)
   
   http.HandleFunc("/", func(rw http.  ResponseWriter, r *http.Request) {
       fmt.Fprintln(rw, "Hello World")
@@ -28,8 +28,8 @@ To start a stage server that uses a ACME stage server for certificates.
 import "github.com/ronniskansing/tlswrap"
 
 func main() {
-  config := tlswrap.NewStageConfigFromConfig  (tlswrap.NewConfig("./", []string{""}))
-  tlswrap.StartServerWithHandler(":8443", config, nil)
+  config := tlswrap.NewConfig(tlswrap.NewConfig("./", []string{""}))
+  tlswrap.StartStageServer(":8443", config)
   
   http.HandleFunc("/", func(rw http.  ResponseWriter, r *http.Request) {
       fmt.Fprintln(rw, "Hello World")
@@ -43,8 +43,8 @@ To start a production server that self-provisions certificates
 import "github.com/ronniskansing/tlswrap"
 
 func main() {
-  config := tlswrap.NewStageConfigFromConfig(tlswrap.NewConfig("./", []string{"domain.tld"}))
-  tlswrap.StartServerWithHandler(":443", config, nil)
+  config := tlswrap.NewConfig(tlswrap.NewConfig("./", []string{"domain.tld"}))
+  tlswrap.StartServer(":443", config)
 
   http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
     fmt.Fprintln(rw, "Hello World")
