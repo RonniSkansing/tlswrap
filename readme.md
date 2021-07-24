@@ -9,13 +9,14 @@ Auto provision TLS for development, stage or production
 To start a development server that creates a self-signed certification and starts a server with it
 
 ```golang
+package main
+
 import "github.com/ronniskansing/tlswrap"
 
 func main() {
   http.HandleFunc("/", func(rw http.  ResponseWriter, r *http.Request) {
       fmt.Fprintln(rw, "Hello World")
   })
-}
   config := tlswrap.NewConfig("./", []string{""})
   tlswrap.StartDevServer("127.0.0.1:8443", config)
 }
@@ -26,6 +27,7 @@ func main() {
 To start a stage server that uses a ACME stage server for certificates.
 
 ```golang
+package main
 import "github.com/ronniskansing/tlswrap"
 
 func main() {
@@ -41,6 +43,7 @@ func main() {
 ### Production Server
 To start a production server that self-provisions certificates
 ```golang
+package main
 import "github.com/ronniskansing/tlswrap"
 
 func main() {
